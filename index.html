@@ -6,14 +6,14 @@
 <meta name="theme-color" content="#080d1b">
 <title>30 Games Hub</title>
 <style>
-:root{color-scheme:dark;--bg:#080d1b;--panel:#111d33;--line:#294568;--blue:#249cff;--cyan:#62e5ff;--muted:#9eb0ca}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#17335a 0,var(--bg) 55%);color:#eef6ff;font-family:system-ui,Arial,sans-serif}
+:root{color-scheme:dark;--bg:#080d1b;--panel:#111d33;--line:#294568;--blue:#249cff;--cyan:#62e5ff;--muted:#9eb0ca;--glass:rgba(17,29,51,.86)}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% -15%,#355d83 0,#14263e 34%,#080d1b 76%);color:#eef6ff;font-family:system-ui,Arial,sans-serif;background-attachment:fixed}header{position:relative}header:after{content:"";display:block;height:1px;margin-top:22px;background:linear-gradient(90deg,transparent,#6db8e8aa,transparent)}
 header,main,#gameView{width:min(1120px,calc(100% - 28px));margin:auto}header{padding:26px 0 18px}h1{font-size:clamp(30px,6vw,48px);margin:0;letter-spacing:-1px}h1 span{color:var(--cyan)}p{color:var(--muted)}
 .tools{display:flex;gap:10px;flex-wrap:wrap}.tools input,.tools select{padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:var(--panel);color:white;font:inherit}.tools input{flex:1;min-width:180px}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:12px;padding-bottom:35px}
-.card{background:linear-gradient(145deg,#192b49,#101a2e);border:1px solid var(--line);border-radius:16px;padding:15px;color:white;text-align:left;cursor:pointer;min-height:125px;transition:.15s}.card:hover{transform:translateY(-3px);border-color:var(--cyan)}.emoji{font-size:30px;display:block;margin-bottom:7px}.card small{display:block;color:var(--muted);margin-top:4px}
+.card{position:relative;overflow:hidden;background:linear-gradient(150deg,rgba(89,133,172,.25),transparent 45%),linear-gradient(145deg,#253d58,#101a2b 72%);border:1px solid #55718e;border-radius:17px;padding:15px;color:white;text-align:left;cursor:pointer;min-height:125px;transition:transform .2s,box-shadow .2s,border-color .2s;box-shadow:inset 0 1px 0 #ffffff20,0 8px 20px #0005}.card:before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,#ffffff0d,transparent 42%,#8ad8ff08);pointer-events:none}.card:hover{box-shadow:inset 0 1px 0 #ffffff35,0 14px 28px #0008}.card:hover{transform:translateY(-3px);border-color:var(--cyan)}.emoji{font-size:34px;display:block;margin-bottom:7px;filter:drop-shadow(0 4px 3px #0009);position:relative}.card small{display:block;color:var(--muted);margin-top:4px}
 #gameView{display:none;padding:12px 0 35px}.top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}.btn{border:1px solid #35577f;background:#192d4c;color:white;border-radius:11px;padding:10px 14px;font:inherit;cursor:pointer}.primary{background:linear-gradient(110deg,#147de5,#12a8ce);border:0;font-weight:700}
-.stage{background:#101c32;border:1px solid var(--line);border-radius:18px;padding:12px}#title{margin:0 0 8px;font-size:22px}canvas{width:100%;height:auto;display:block;aspect-ratio:8/5;background:#071020;border:1px solid #2a4161;border-radius:12px;touch-action:none}
+.stage{background:linear-gradient(145deg,#1b3049,#0b1526);border:1px solid #496785;border-radius:20px;padding:12px;box-shadow:0 18px 45px #0008,inset 0 1px 0 #ffffff18}#title{margin:0 0 8px;font-size:22px}canvas{width:100%;height:auto;display:block;aspect-ratio:8/5;background:#071020;border:1px solid #6685a4;border-radius:13px;touch-action:none;box-shadow:inset 0 0 35px #0008,0 7px 18px #0007}
 #hint{text-align:center;margin:10px 0 2px;font-size:14px}.pad{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:12px}.pad button{min-width:58px;min-height:48px;font-size:19px;touch-action:none}
 #result{display:none;position:fixed;inset:0;background:#020611df;align-items:center;justify-content:center;padding:20px}.dialog{background:#14233d;border:1px solid #41648d;border-radius:18px;padding:24px;text-align:center;max-width:340px;width:100%}
 footer{text-align:center;color:#7185a3;padding:18px;font-size:12px}
@@ -23,7 +23,7 @@ footer{text-align:center;color:#7185a3;padding:18px;font-size:12px}
 <body>
 <header id="header">
 <h1>🎮 30 <span>GAMES HUB</span></h1>
-<p>30 mini-games in one HTML file · Mobile + PC controls · No external game links</p>
+<p>30 mini-games · Realistic 2D lighting and depth · Mobile + PC controls · One HTML file</p>
 <div class="tools"><input id="search" placeholder="🔎 Search games"><select id="filter"><option>All</option><option>Arcade</option><option>Action</option><option>Puzzle</option><option>Sports</option><option>Racing</option></select></div>
 </header>
 <main id="menu"><div class="grid" id="grid"></div></main>
@@ -34,7 +34,7 @@ footer{text-align:center;color:#7185a3;padding:18px;font-size:12px}
 </div></div>
 </section>
 <div id="result"><div class="dialog"><h2 id="resultTitle">Game over</h2><p id="resultText"></p><button class="btn primary" id="retry">Play again</button> <button class="btn" id="resultMenu">Menu</button></div></div>
-<footer>30 Games Hub · HTML, CSS and JavaScript · Best scores saved on this device</footer>
+<footer>30 Games Hub · Enhanced 2D visuals · Single-file HTML · Best scores saved on this device</footer>
 <script>
 const games=[
 ["Snake","🐍","Arcade","Arrow keys / D-pad: eat the food without hitting yourself."],
@@ -94,9 +94,25 @@ function spawn2048(){let a=state.board.map((v,i)=>v? -1:i).filter(i=>i>=0);if(a.
 function end(message){if(!active)return;active=false;cancelAnimationFrame(raf);bests[game]=Math.max(score,bests[game]||0);try{localStorage.setItem("hub30scores",JSON.stringify(bests))}catch(e){}$("#resultTitle").textContent="Game finished!";$("#resultText").textContent=message+" Score: "+score;$("#result").style.display="flex"}
 function menu(){active=false;cancelAnimationFrame(raf);$("#result").style.display="none";$("#gameView").style.display="none";$("#header").style.display="block";$("#menu").style.display="block"}
 $("#back").onclick=menu;$("#resultMenu").onclick=menu;$("#reset").onclick=()=>start(game);$("#retry").onclick=()=>start(game);
-function rect(x,y,w,h,c){ctx.fillStyle=c;ctx.fillRect(x,y,w,h)}function circ(x,y,r,c){ctx.fillStyle=c;ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fill()}
+function rect(x,y,w,h,c){
+  // Material-like surfaces: soft lighting, subtle bevel and contact shadow.
+  ctx.save(); if(w>5&&h>5){ctx.shadowColor="#0008";ctx.shadowBlur=4;ctx.shadowOffsetY=2}
+  let g=ctx.createLinearGradient(x,y,x+w,y+h);g.addColorStop(0,lighten(c,.22));g.addColorStop(.48,c);g.addColorStop(1,darken(c,.2));ctx.fillStyle=g;ctx.fillRect(x,y,w,h);
+  if(w>8&&h>8){ctx.shadowColor="transparent";ctx.strokeStyle="#ffffff20";ctx.lineWidth=1;ctx.strokeRect(x+.5,y+.5,w-1,h-1)}ctx.restore();
+}
+function lighten(c,a){return tint(c,a)}function darken(c,a){return tint(c,-a)}
+function tint(c,a){if(!/^#[0-9a-f]{6}$/i.test(c))return c;let n=parseInt(c.slice(1),16),r=n>>16,g=n>>8&255,b=n&255;let f=v=>Math.max(0,Math.min(255,Math.round(v+(a>0?255-v:v)*a)));return `rgb(${f(r)},${f(g)},${f(b)})`}
+function circ(x,y,r,c){ctx.save();ctx.shadowColor="#0009";ctx.shadowBlur=Math.max(2,r*.28);ctx.shadowOffsetY=Math.max(1,r*.12);let g=ctx.createRadialGradient(x-r*.35,y-r*.4,Math.max(1,r*.05),x,y,r);g.addColorStop(0,lighten(c,.45));g.addColorStop(.55,c);g.addColorStop(1,darken(c,.32));ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fill();ctx.shadowColor="transparent";ctx.strokeStyle="#ffffff38";ctx.lineWidth=Math.max(1,r*.07);ctx.stroke();ctx.restore()}
 function txt(t,x,y,size=22,c="#fff"){ctx.fillStyle=c;ctx.font=`bold ${size}px system-ui`;ctx.textAlign="center";ctx.fillText(t,x,y)}
-function base(){rect(0,0,800,500,"#071020");for(let i=0;i<30;i++)circ((i*139)%800,(i*79)%500,1,"#203653")}
+function base(){
+  let sky=ctx.createLinearGradient(0,0,0,500);sky.addColorStop(0,"#243c56");sky.addColorStop(.48,"#172b40");sky.addColorStop(1,"#091522");ctx.fillStyle=sky;ctx.fillRect(0,0,800,500);
+  // Atmospheric horizon glow and a softly textured ground plane.
+  let glow=ctx.createRadialGradient(400,220,10,400,220,440);glow.addColorStop(0,"#6c9db522");glow.addColorStop(1,"#00000000");ctx.fillStyle=glow;ctx.fillRect(0,0,800,500);
+  ctx.fillStyle="#ffffff08";for(let i=0;i<95;i++){let x=(i*137)%800,y=(i*83)%500;ctx.fillRect(x,y,1+(i%2),1)}
+  let floor=ctx.createLinearGradient(0,330,0,500);floor.addColorStop(0,"#ffffff08");floor.addColorStop(1,"#00000030");ctx.fillStyle=floor;ctx.fillRect(0,330,800,170);
+  ctx.strokeStyle="#b8d9f00b";ctx.lineWidth=1;for(let y=350;y<500;y+=30){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(800,y);ctx.stroke()}
+  let vignette=ctx.createRadialGradient(400,245,160,400,245,560);vignette.addColorStop(.45,"#00000000");vignette.addColorStop(1,"#000a");ctx.fillStyle=vignette;ctx.fillRect(0,0,800,500);
+}
 function move(p,s=5){p.x+=((keys.ArrowRight||keys.d)?s:0)-((keys.ArrowLeft||keys.a)?s:0);p.y+=((keys.ArrowDown||keys.s)?s:0)-((keys.ArrowUp||keys.w)?s:0);p.x=Math.max(12,Math.min(788,p.x));p.y=Math.max(12,Math.min(488,p.y))}
 function draw(){
 let s=state;s.t++;base();
